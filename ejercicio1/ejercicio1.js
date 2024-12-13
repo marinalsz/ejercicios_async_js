@@ -9,18 +9,24 @@ const getCharacters = async () => {
 };
 
 const printCharacters = (characters) => {
+  const list = document.getElementById("character-list");
   characters.forEach((character) => {
     const option = document.createElement("option");
     option.innerText = character.fullName;
     option.value = character.imageUrl;
-    document.querySelector("#character-list").appendChild(option);
-    const lista = document.getElementById("character-list");
+    list.appendChild(option);
+  });
+  list.addEventListener("change", (event) => {
     const imagen = document.querySelector(".character-image");
-    lista.addEventListener("change", (event) => {
-        const imageUrl = event.target.value;
-        imagen.src = imageUrl;
-        imagen.alt = lista.selectedOptions[0].textContent;
-    });
+    const imageUrl = event.target.value;
+    if (imageUrl) {
+      imagen.src = imageUrl;
+      imagen.alt = list.selectedOptions[0].textContent;
+    } else {
+      imagen.src =
+        "https://seeklogo.com/images/G/game-of-thrones-logo-20E37C96FE-seeklogo.com.png";
+      imagen.alt = "GOT icon";
+    }
   });
 };
 
